@@ -74,7 +74,6 @@ class _SongScreenState extends State<SongScreen> {
 
 class _MusicPlayer extends StatelessWidget {
   const _MusicPlayer({
-    super.key,
     required this.song,
     required Stream<SeekBarData> seekBarDataStream,
     required this.audioPlayer,
@@ -131,7 +130,7 @@ class _MusicPlayer extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 iconSize: 35,
-                icon: Icon(
+                icon: const Icon(
                   Icons.settings,
                   color: Colors.white,
                 ),
@@ -139,7 +138,7 @@ class _MusicPlayer extends StatelessWidget {
               IconButton(
                 onPressed: () {},
                 iconSize: 35,
-                icon: Icon(
+                icon: const Icon(
                   Icons.cloud_download,
                   color: Colors.white,
                 ),
@@ -153,9 +152,7 @@ class _MusicPlayer extends StatelessWidget {
 }
 
 class _BackgroundFilter extends StatelessWidget {
-  const _BackgroundFilter({
-    super.key,
-  });
+  const _BackgroundFilter();
 
   @override
   Widget build(BuildContext context) {
