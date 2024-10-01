@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/playlist_model.dart';
 
 class PlayListScreen extends StatelessWidget {
@@ -48,7 +47,6 @@ class PlayListScreen extends StatelessWidget {
 
 class _PlayListSong extends StatelessWidget {
   const _PlayListSong({
-    super.key,
     required this.playlists,
   });
 
@@ -84,9 +82,7 @@ class _PlayListSong extends StatelessWidget {
 }
 
 class _PlayOrShuffleSwitch extends StatefulWidget {
-  const _PlayOrShuffleSwitch({
-    super.key,
-  });
+  const _PlayOrShuffleSwitch();
 
   @override
   State<_PlayOrShuffleSwitch> createState() => _PlayOrShuffleSwitchState();
@@ -180,7 +176,6 @@ class _PlayOrShuffleSwitchState extends State<_PlayOrShuffleSwitch> {
 
 class _PlayListInformation extends StatelessWidget {
   const _PlayListInformation({
-    super.key,
     required this.playlists,
   });
 
