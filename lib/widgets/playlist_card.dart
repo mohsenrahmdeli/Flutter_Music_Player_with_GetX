@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../models/playlist_model.dart';
 
 class PlayListCard extends StatelessWidget {
@@ -18,8 +17,8 @@ class PlayListCard extends StatelessWidget {
         Get.toNamed('/playlist', arguments: playlist);
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 10),
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
             color: Colors.deepPurple.shade800.withOpacity(0.6),
             borderRadius: BorderRadius.circular(15.0)),
@@ -36,7 +35,7 @@ class PlayListCard extends StatelessWidget {
             //     fit: BoxFit.cover,
             //   ),
             //),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
@@ -61,7 +60,7 @@ class PlayListCard extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.play_circle, color: Colors.white),
+              icon: const Icon(Icons.play_circle, color: Colors.white),
             ),
           ],
         ),
