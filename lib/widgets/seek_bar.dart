@@ -32,7 +32,8 @@ class _SeekBarState extends State<SeekBar> {
       return '--:--';
     } else {
       String minutes = duration.inMinutes.toString().padLeft(2, '0');
-      String seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+      String seconds =
+          duration.inSeconds.remainder(60).toString().padLeft(2, '0');
       return '$minutes:$seconds';
     }
   }
@@ -41,7 +42,7 @@ class _SeekBarState extends State<SeekBar> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(_formatDuration(widget.position)),
+        Text(_formatDuration(widget.duration)),
         Expanded(
           child: SliderTheme(
             data: SliderTheme.of(context).copyWith(
@@ -61,7 +62,7 @@ class _SeekBarState extends State<SeekBar> {
               min: 0.0,
               max: widget.duration.inMilliseconds.toDouble(),
               value: min(
-                _dragValue ?? widget.position.inMicroseconds.toDouble(),
+                _dragValue ?? widget.position.inMilliseconds.toDouble(),
                 widget.duration.inMilliseconds.toDouble(),
               ),
               onChanged: (value) {
@@ -89,7 +90,7 @@ class _SeekBarState extends State<SeekBar> {
             ),
           ),
         ),
-        Text(_formatDuration(widget.duration)),
+        Text(_formatDuration(widget.position)),
       ],
     );
   }
