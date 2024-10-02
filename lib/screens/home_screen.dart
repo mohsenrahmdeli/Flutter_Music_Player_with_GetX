@@ -4,6 +4,9 @@ import '../models/song_model.dart';
 import '../widgets/playlist_card.dart';
 import '../widgets/section_header.dart';
 import '../widgets/song_card.dart';
+import 'favorite_screen.dart';
+import 'profile_screen.dart';
+import 'song_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -155,10 +158,37 @@ class _DiscoverMusic extends StatelessWidget {
   }
 }
 
-class _CustomBottomNavbar extends StatelessWidget {
+class _CustomBottomNavbar extends StatefulWidget {
   const _CustomBottomNavbar({
     super.key,
   });
+
+  @override
+  State<_CustomBottomNavbar> createState() => _CustomBottomNavbarState();
+}
+
+class _CustomBottomNavbarState extends State<_CustomBottomNavbar> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+  if (index == 1) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+    );
+  } else if (index == 2) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SongScreen()),
+    );
+  } else if (index == 3) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfileScreen()),
+    );
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -166,9 +196,11 @@ class _CustomBottomNavbar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.deepPurple.shade800,
       unselectedItemColor: Colors.white,
-      selectedItemColor: Colors.white,
+      selectedItemColor: Colors.yellowAccent,
       showUnselectedLabels: false,
-      showSelectedLabels: false,
+      showSelectedLabels: true,
+      currentIndex: _selectedIndex,
+      onTap: _onItemTapped,
       items: const [
         BottomNavigationBarItem(
             icon: Icon(
