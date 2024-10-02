@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/playlist_model.dart';
 import '../models/song_model.dart';
 import '../widgets/playlist_card.dart';
@@ -71,8 +70,6 @@ class _PlayListMusic extends StatelessWidget {
     );
   }
 }
-
-
 
 class _TrendingMusic extends StatelessWidget {
   const _TrendingMusic({
@@ -206,7 +203,7 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: const Icon(Icons.grid_view_rounded),
+      leading: const Icon(Icons.grid_view_rounded,color: Colors.white,),
       actions: [
         Container(
           margin: const EdgeInsets.only(right: 20),
