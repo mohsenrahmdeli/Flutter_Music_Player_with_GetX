@@ -38,10 +38,10 @@ class _SongScreenState extends State<SongScreen> {
 
   Stream<SeekBarData> get _seekBarDataStream =>
       rxdart.Rx.combineLatest2<Duration, Duration?, SeekBarData>(
-          audioPlayer.positionStream, 
-          audioPlayer.durationStream, 
-          (Duration position,
-          Duration? duration,) {
+          audioPlayer.positionStream, audioPlayer.durationStream, (
+        Duration position,
+        Duration? duration,
+      ) {
         return SeekBarData(position, duration ?? Duration.zero);
       });
 
@@ -51,6 +51,13 @@ class _SongScreenState extends State<SongScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
