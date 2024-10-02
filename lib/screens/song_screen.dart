@@ -38,10 +38,10 @@ class _SongScreenState extends State<SongScreen> {
 
   Stream<SeekBarData> get _seekBarDataStream =>
       rxdart.Rx.combineLatest2<Duration, Duration?, SeekBarData>(
-          audioPlayer.positionStream, audioPlayer.durationStream, (
-        Duration position,
-        Duration? duration,
-      ) {
+          audioPlayer.positionStream, 
+          audioPlayer.durationStream, 
+          (Duration position,
+          Duration? duration,) {
         return SeekBarData(position, duration ?? Duration.zero);
       });
 
