@@ -58,11 +58,13 @@ class _PlayListMusic extends StatelessWidget {
           const SectionHeader(title: 'Playlists'),
           ListView.builder(
             shrinkWrap: true,
-            padding: const EdgeInsets.only(top:20),
+            padding: const EdgeInsets.only(top: 20),
             physics: const NeverScrollableScrollPhysics(),
             itemCount: playlists.length,
             itemBuilder: ((context, index) {
-              return PlayListCard(playlist : playlists[index],);
+              return PlayListCard(
+                playlist: playlists[index],
+              );
             }),
           ),
         ],
@@ -203,21 +205,21 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: const Icon(Icons.grid_view_rounded,color: Colors.white,),
+      leading: const Icon(
+        Icons.grid_view_rounded,
+        color: Colors.white,
+      ),
       actions: [
         Container(
           margin: const EdgeInsets.only(right: 20),
-          child: const CircleAvatar(
-              // backgroundImage: NetworkImage(
-
-              // ),
-              ),
+          child: CircleAvatar(
+            child: Image.asset('assets/images/avatar.png'),
+          ),
         )
       ],
     );
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(56.0);
 }
