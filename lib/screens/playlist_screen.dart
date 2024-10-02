@@ -23,11 +23,19 @@ class PlayListScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title:  Text('Play List',
-          style: Theme.of(context)
+          title: Text(
+            'Play List',
+            style: Theme.of(context)
                 .textTheme
                 .headlineSmall!
                 .copyWith(fontWeight: FontWeight.bold),
+          ),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () => Navigator.pop(context),
           ),
         ),
         body: SingleChildScrollView(
@@ -65,17 +73,22 @@ class _PlayListSong extends StatelessWidget {
         itemCount: playlists.songs.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Text('${index + 1}',
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontWeight: FontWeight.bold
+            leading: Text(
+              '${index + 1}',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
+            title: Text(
+              playlists.songs[index].title,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
-            title: Text(playlists.songs[index].title,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontWeight: FontWeight.bold
-            ),
-            ),
-            subtitle: Text('${playlists.songs[index].description} 02:45',
+            subtitle: Text(
+              '${playlists.songs[index].description} 02:45',
             ),
             trailing: const Icon(
               Icons.more_vert,
