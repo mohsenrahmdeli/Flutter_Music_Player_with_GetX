@@ -23,7 +23,12 @@ class PlayListScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: const Text('Play List'),
+          title:  Text('Play List',
+          style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
