@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart' as rxdart;
 import '../models/song_model.dart';
 import '../widgets/player_buttons.dart';
 import '../widgets/seek_bar.dart';
+import 'home_screen.dart';
 
 class SongScreen extends StatefulWidget {
   const SongScreen({super.key});
@@ -56,7 +57,12 @@ class _SongScreenState extends State<SongScreen> {
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          ),
         ),
       ),
       extendBodyBehindAppBar: true,
@@ -79,7 +85,7 @@ class _SongScreenState extends State<SongScreen> {
   }
 }
 
-class _MusicPlayer extends StatelessWidget {
+class _MusicPlayer extends StatefulWidget {
   const _MusicPlayer({
     required this.song,
     required Stream<SeekBarData> seekBarDataStream,
@@ -89,6 +95,19 @@ class _MusicPlayer extends StatelessWidget {
   final Song song;
   final Stream<SeekBarData> _seekBarDataStream;
   final AudioPlayer audioPlayer;
+
+  @override
+  State<_MusicPlayer> createState() => _MusicPlayerState();
+}
+
+class _MusicPlayerState extends State<_MusicPlayer> {
+  bool _isFavorite = false;
+
+  void _toggleFavorite() {
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +121,7 @@ class _MusicPlayer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            song.title,
+            widget.song.title,
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -112,24 +131,24 @@ class _MusicPlayer extends StatelessWidget {
             height: 10,
           ),
           Text(
-            song.description,
+            widget.song.description,
             maxLines: 2,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Colors.white,
                 ),
           ),
           StreamBuilder<SeekBarData>(
-            stream: _seekBarDataStream,
+            stream: widget._seekBarDataStream,
             builder: (context, snapshot) {
               final positionData = snapshot.data;
               return SeekBar(
                 position: positionData?.position ?? Duration.zero,
                 duration: positionData?.duration ?? Duration.zero,
-                onChangEnd: audioPlayer.seek,
+                onChangEnd: widget.audioPlayer.seek,
               );
             },
           ),
-          PlayerButtons(audioPlayer: audioPlayer),
+          PlayerButtons(audioPlayer: widget.audioPlayer),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,15 +157,15 @@ class _MusicPlayer extends StatelessWidget {
                 onPressed: () {},
                 iconSize: 35,
                 icon: const Icon(
-                  Icons.settings,
+                  Icons.home,
                   color: Colors.white,
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: _toggleFavorite,
                 iconSize: 35,
-                icon: const Icon(
-                  Icons.cloud_download,
+                icon: Icon(
+                  _isFavorite ? Icons.favorite : Icons.favorite_border,
                   color: Colors.white,
                 ),
               ),
