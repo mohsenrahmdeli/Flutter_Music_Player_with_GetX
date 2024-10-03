@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/playlist_model.dart';
 import '../models/song_model.dart';
-import '../widgets/playlist_card.dart';
 import '../widgets/section_header.dart';
 import '../widgets/song_card.dart';
 import 'favorite_screen.dart';
+import 'playlist_screen.dart';
 import 'profile_screen.dart';
 import 'song_screen.dart';
 
@@ -14,7 +13,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Song> songs = Song.songs;
-    List<Playlist> playlists = Playlist.playlists;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -35,42 +33,23 @@ class HomeScreen extends StatelessWidget {
             children: [
               const _DiscoverMusic(),
               _TrendingMusic(songs: songs),
-              _PlayListMusic(playlists: playlists),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Click here to open from file...',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _PlayListMusic extends StatelessWidget {
-  const _PlayListMusic({
-    super.key,
-    required this.playlists,
-  });
-
-  final List<Playlist> playlists;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          const SectionHeader(title: 'Playlists'),
-          ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(top: 20),
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: playlists.length,
-            itemBuilder: ((context, index) {
-              return PlayListCard(
-                playlist: playlists[index],
-              );
-            }),
-          ),
-        ],
       ),
     );
   }
@@ -168,27 +147,26 @@ class _CustomBottomNavbar extends StatefulWidget {
 }
 
 class _CustomBottomNavbarState extends State<_CustomBottomNavbar> {
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-  if (index == 1) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-    );
-  } else if (index == 2) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SongScreen()),
-    );
-  } else if (index == 3) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ProfileScreen()),
-    );
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PlayListScreen()),
+      );
+    } else if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SongScreen()),
+      );
+    } else if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+      );
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +175,7 @@ class _CustomBottomNavbarState extends State<_CustomBottomNavbar> {
       backgroundColor: Colors.deepPurple.shade800,
       unselectedItemColor: Colors.white,
       selectedItemColor: Colors.yellowAccent,
-      showUnselectedLabels: false,
+      showUnselectedLabels: true,
       showSelectedLabels: true,
       currentIndex: _selectedIndex,
       onTap: _onItemTapped,
@@ -209,19 +187,19 @@ class _CustomBottomNavbarState extends State<_CustomBottomNavbar> {
             label: 'Home'),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.favorite_outline,
+              Icons.playlist_play,
             ),
-            label: 'FAvorites'),
+            label: 'Play List'),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.play_circle_outline,
             ),
-            label: 'play'),
+            label: 'Play Now'),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.people_outline,
+              Icons.favorite_outline,
             ),
-            label: 'Profile'),
+            label: 'Favorites'),
       ],
     );
   }
@@ -238,14 +216,24 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: const Icon(
-        Icons.grid_view_rounded,
+        Icons.menu,
         color: Colors.white,
       ),
       actions: [
         Container(
           margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
-            child: Image.asset('assets/images/avatar.png'),
+            child: InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              ),
+              child: Image.asset(
+                'assets/images/avatar.png',
+              ),
+            ),
           ),
         )
       ],
