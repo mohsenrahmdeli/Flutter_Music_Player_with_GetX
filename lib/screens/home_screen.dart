@@ -1,14 +1,35 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../models/song_model.dart';
 import '../widgets/section_header.dart';
+import 'package:file_picker/file_picker.dart';
 import '../widgets/song_card.dart';
 import 'favorite_screen.dart';
 import 'playlist_screen.dart';
 import 'profile_screen.dart';
 import 'song_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<File> songs = [];
+    void pickSongs() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.audio,
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      setState(() {
+        songs = result.paths.map((path) => File(path!)).toList();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +57,7 @@ class HomeScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: pickSongs,
                   child: const Text(
                     'Click here to open from file...',
                     style: TextStyle(
