@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'home_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -43,4 +42,5 @@ class FavoriteScreen extends StatelessWidget {
       ),
     );
   }
+  
 }
